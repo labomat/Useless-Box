@@ -32,37 +32,124 @@ void loop()
 {
   timeDelay = 0;
   buttonState = digitalRead(buttonPin);  
-                            // Read the button position
-                    
- if (buttonState == HIGH) {
-                            // if the button is switched ...         
 
-   if (counterSwitch == 0) {                      
-     counter = counter + 1;    // advance counter
-     counterSwitch = 1;    
-     Serial.println(counter);
-  }
-                                             
-  if (counter % 2 == 0) { timeDelay = 50; } // every second round goes slower
 
-     for(pos = myservo.read(); pos >=20; pos -= 1) { 
-                                // goes from 90 degrees to 20 degrees in 1 step       
-                                                        
-       myservo.write(pos);      // tell servo to go to position in variable 'pos'
-       
-       delay(timeDelay);            // randomize wait time for servo to reach position
-     }
-  }
-  
-  else {
-     timeDelay = random(1, 4);
-     for(pos = myservo.read(); pos <=90; pos += timeDelay) {
-                                // goes from 20 degrees to 90 degrees in 1 step                            
-       myservo.write(pos);      // tell servo to go to position in variable 'pos'                
-       delay(0);            // set back time delay
-       counterSwitch = 0;
-     }
+switch (counter) {
+    case 4:
+       if (buttonState == HIGH) {  // not switched
+                                  
+         if (counterSwitch == 0) {                      
+           counter = counter + 1;    // advance counter
+           counterSwitch = 1;    
+           Serial.println(counter);
+           }
+      
+         for(pos = myservo.read(); pos >=20; pos -= 1) {                                     
+           myservo.write(pos);     
+           }
+        }
+        else {                    // switched
+        
+          // if (counter % 2 == 0) { timeDelay = 50; } // every second round goes slower
+          
+          for(pos = myservo.read(); pos <=90; pos += 1) {                    
+            myservo.write(pos);                 
+            delay(50);   
+            }
+            counterSwitch = 0;
+          }
      
-  }
-}
+      break;
+      
+    case 6:
+       if (buttonState == HIGH) {  // not switched
+                                  
+         if (counterSwitch == 0) {                      
+           counter = counter + 1;    // advance counter
+           counterSwitch = 1;    
+           Serial.println(counter);
+           }
+      
+         for(pos = myservo.read(); pos >=20; pos -= 1) {                                     
+           myservo.write(pos);     
+           }
+        }
+        else {                    // switched
+          
+          for(pos = myservo.read(); pos <=65; pos += 1) {                    
+            myservo.write(pos);                 
+            delay(50);   
+            }
+            delay(1000); 
+            myservo.write(90);  
+            counterSwitch = 0;
+          }
+      break;
+
+    case 1:
+       if (buttonState == HIGH) {  // not switched
+                                  
+         if (counterSwitch == 0) {                      
+           counter = counter + 1;    // advance counter
+           counterSwitch = 1;    
+           Serial.println(counter);
+           }
+      
+         for(pos = myservo.read(); pos >=20; pos -= 1) {                                     
+           myservo.write(pos);     
+           }
+        }
+        else {                    // switched
+
+          delay(1000); 
+          
+          for(pos = myservo.read(); pos <=88; pos += 1) {                    
+            myservo.write(pos);                 
+            delay(2);   
+            }
+            delay(500); 
+
+            for(pos = myservo.read(); pos >=50; pos -= 1) {                                     
+              myservo.write(pos);     
+              }
+            delay(1500); 
+            
+           for(pos = myservo.read(); pos <=85; pos += 1) {                    
+            myservo.write(pos);                 
+            delay(50);   
+            }
+            delay(1500); 
+            counterSwitch = 0;
+          }
+      break;
+      
+    default:
+       if (buttonState == HIGH) {  // not switched
+                                  
+         if (counterSwitch == 0) {                      
+           counter = counter + 1;    // advance counter
+           counterSwitch = 1;    
+           Serial.println(counter);
+           }
+      
+         for(pos = myservo.read(); pos >=20; pos -= 1) {                                     
+           myservo.write(pos);     
+           }
+        }
+        else {                    // switched
+        
+          // if (counter % 2 == 0) { timeDelay = 50; } // every second round goes slower
+          
+          for(pos = myservo.read(); pos <=90; pos += 1) {                    
+            myservo.write(pos);                 
+            delay(timeDelay);   
+            }
+            counterSwitch = 0;
+          }
+          
+          break;                  // end switch loop
+        }
+
+}                                 // end main loop
+
 
